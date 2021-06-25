@@ -1,0 +1,15 @@
+{% extends 'auth/base.html' %}
+
+{% block title %}
+Login as
+{% endblock %}
+
+{% block body %}
+<div class="main">
+    <h1>Login as</h1>
+    <div class="choosing">
+        <a class="choose" href="{{ url_for('auth.teacher')}}">Teacher</a>
+        <a class="choose" href="{{ url_for('auth.student')}}">Student</a>
+    </div>
+</div>
+{% endblock %}
