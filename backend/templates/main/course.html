@@ -1,0 +1,29 @@
+{% extends 'main/base.html' %} {% block title %}Education System{% endblock %}
+{% block body %}
+<div class="header">
+    <h1>Education System</h1>
+    <div class="header__nav">
+        {% if not current_user.is_authenticated %}
+        <a href="{{ url_for('auth.index') }}" class="header__nav-button">Login</a>
+        {% else %}
+        <a href="#">Hello, {{current_user.name}}</a>
+        {% if session['login_type'] == 'student' %}
+        <a href="{{ url_for('class.index') }}" class="header__nav-button">MY CLASSROOM</a>
+        {% elif session['login_type'] == 'teacher' %}
+        <a href="{{ url_for('class.index') }}" class="header__nav-button">TEACHER ROOM</a>
+        {% endif %}
+        <a href="{{ url_for('auth.logout') }}" class="header__nav-button">Log Out</a>
+        {% endif %}
+    </div>
+</div>
+<div class="profile">
+    <h1>{{ data['name'] }} Course Info</h1>
+    <div class="info">
+        <h3><span class="info-name">Name:</span>{{ data['name'] }}</h3>
+        <h3><span class="info-name">Teacher:</span><a href="#">{{ data['teacher'].name }}</a></h3>
+        <h3><span class="info-name">Next lesson:</span>{{ data['start_time'].strftime('%H:%M %d/%m/%y') }}</h3>
+        <h3><span class="info-name">Students:</span>{{ data['students'] }}</h3>
+    </div>
+</div>
+<center><a href="/">← Back</a></center>
+{% endblock %}

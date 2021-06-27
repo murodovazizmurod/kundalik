@@ -1,9 +1,9 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from flask_login import LoginManager
+from flask_migrate import Migrate
+from flask_sqlalchemy import SQLAlchemy
 
 # Init App
 app = Flask(__name__)
@@ -26,6 +26,7 @@ admin.add_view(ModelView(models.Course, db.session))
 admin.add_view(ModelView(models.Role, db.session))
 admin.add_view(ModelView(models.Room, db.session))
 admin.add_view(ModelView(models.Lessoon, db.session))
+admin.add_view(ModelView(models.Post, db.session))
 
 # BluePrints
 from backend import classroom
@@ -40,10 +41,6 @@ main_blue = main.main
 
 app.register_blueprint(blueprint=main.main)
 
-
 from backend import auth
 
-
-app.register_blueprint(blueprint=auth.auth, url_prefix="/auth")
-
-
+app.register_blueprint(blueprint=auth.auth, url_prefix="/Auth")

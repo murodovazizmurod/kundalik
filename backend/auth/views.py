@@ -14,7 +14,7 @@ def index():
         return redirect(url_for('main.index'))
 
 
-@auth.route('/student', methods=['GET', 'POST'])
+@auth.route('/Student', methods=['GET', 'POST'])
 def student():
     session['login_type'] = 'student'
     if not current_user.is_authenticated:
@@ -32,7 +32,7 @@ def student():
     return redirect(url_for("main.index"))
 
 
-@auth.route('/teacher', methods=['GET', 'POST'])
+@auth.route('/Teacher', methods=['GET', 'POST'])
 def teacher():
     session['login_type'] = 'teacher'
     if not current_user.is_authenticated:
@@ -50,7 +50,7 @@ def teacher():
     return redirect(url_for("main.index"))
 
 
-@auth.route("/logout")
+@auth.route("/Logout")
 @login_required
 def logout():
     logout_user()
@@ -62,11 +62,10 @@ def register():
     if not current_user.is_authenticated:
         if request.method == 'POST':
             data = request.form
-            user = models.Teacher(name=data['name'],
-                                    username=data['username'],
-                                    phone=data['phone'],
-                                    email=data['email'],
-                                    password=data['password'])
+            user = models.Student(name=data['name'],
+                                  username=data['username'],
+                                  phone=data['phone'],
+                                  password=data['password'])
             db.session.add(user)
             db.session.commit()
             return redirect(url_for('auth.index'))

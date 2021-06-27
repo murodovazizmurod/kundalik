@@ -1,0 +1,25 @@
+{% extends 'classroom/base_teacher.html' %}
+
+{% block title %}{{ current_user.name }}'s Teacher Room - Education System{% endblock %}
+
+
+
+{% block body %}
+<div class="calendar">
+    <div class="calendar-top">
+        <h1>Select Room</h1>
+    </div>
+  <div class="days">
+        {% for r in data['rooms'] %}
+        <a href="{{ url_for('class.teacher_calendar_day_room', time=data['time'], room=r.id)}}">
+        <div class="day" style="justify-content: center;align-items: center;">
+            <span>
+                {{ r }}
+            </span>
+        </div>
+        </a>
+        {% endfor %}
+    </div>
+    <center><a href="{{ url_for('class.teacher_calendar')}}">← Back</a></center>
+</div>
+{% endblock %}

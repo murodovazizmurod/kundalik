@@ -1,0 +1,36 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Education System{% endblock %}
+
+
+{% block body %}
+<div class="header">
+    <h1><a href="/">Education System</a></h1>
+    <div class="header__nav">
+        {% if not current_user.is_authenticated %}
+        <a href="{{ url_for('auth.index') }}" class="header__nav-button">Login</a>
+        {% else %}
+        <a href="#" class="welcome">Hello, {{current_user.name}}</a>
+        {% if session['login_type'] == 'student' %}
+        <a href="{{ url_for('class.index') }}" class="header__nav-button">MY CLASSROOM</a>
+        {% elif session['login_type'] == 'teacher' %}
+        <a href="{{ url_for('class.index') }}" class="header__nav-button">TEACHER ROOM</a>
+        {% endif %}
+        <a href="{{ url_for('auth.logout') }}" class="header__nav-button">Log Out</a>
+        {% endif %}
+    </div>
+</div>
+<div class="main">
+    <h1 data-aos="fade-down">Education System</h1>
+    <p data-aos="fade-up">Modern way to solve problem</p>
+    {% if not current_user.is_authenticated %}
+    <a href="{{ url_for('auth.index') }}" class="main__link" data-aos="fade-up">Start Tour</a>
+    {% else %}
+    {% if session['login_type'] == 'student' %}
+    <a href="{{ url_for('class.index') }}" class="main__link" data-aos="fade-up">To classroom</a>
+    {% elif session['login_type'] == 'teacher' %}
+    <a href="{{ url_for('class.index') }}" class="main__link" data-aos="fade-up">To teacher's board</a>
+    {% endif %}
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}No content here :/{% endblock %}</title>
+    <link href="{{ url_for('static', filename='auth/Roboto.ttf') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='classroom/main.css') }}">
+    {% block head %}{% endblock %}
+</head>
+<body>
+{% block body %}
+No content here :/
+{% endblock %}
+</body>
+</html>

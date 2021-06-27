@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}No content here :/{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='aos.css') }}">
+    <script src="{{ url_for('static', filename='aos.js') }}"></script>
+    <link href="{{ url_for('static', filename='auth/Roboto.ttf') }}">
+</head>
+<body>
+{% block body %}
+No content here :/
+{% endblock %}
+<script>
+  AOS.init();
+
+</script>
+
+</body>
+</html>

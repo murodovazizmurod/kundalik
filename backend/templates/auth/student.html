@@ -9,24 +9,24 @@ Login page for students
     <h1>Login as Student</h1>
     <div class="rounded">
         <form action="{{ url_for('auth.student') }}" method="post">
-        {% with errors = get_flashed_messages() %}
-        {% if errors %}
-          <ul>
-            {%- for msg in errors %}
-            <li style="color: red;">{{ msg }}</li>
-            {% endfor -%}
-          </ul>
-        {% endif %}
-        {% endwith %}
-        <div>
-        <label for="login">Username</label>
-        <input type="text" class="control" id="login" placeholder="Type here" required name="username">
-        </div>
-        <div>
-        <label for="password">Password</label>
-        <input type="password" class="control" id="password" placeholder="Type here" required name="password">
-        </div>
-        <input type="submit" value="Login" class="submit-btn">
+            {% with errors = get_flashed_messages() %}
+            {% if errors %}
+            <ul>
+                {%- for msg in errors %}
+                <li style="color: red;">{{ msg }}</li>
+                {% endfor -%}
+            </ul>
+            {% endif %}
+            {% endwith %}
+            <div>
+                <label for="login">Username</label>
+                <input type="text" class="control" id="login" placeholder="Type here" required name="username">
+            </div>
+            <div>
+                <label for="password">Password</label>
+                <input type="password" class="control" id="password" placeholder="Type here" required name="password">
+            </div>
+            <input type="submit" value="Login" class="submit-btn">
         </form>
         <a href="{{ url_for('auth.index') }}" class="black-link">Change Role</a>
     </div>

@@ -1,0 +1,45 @@
+{% extends 'classroom/base_teacher.html' %}
+
+{% block title %}{{ current_user.name }}'s Teacher Room - Education System{% endblock %}
+
+
+
+{% block body %}
+<div class="content">
+    <div class="content__main nothing">
+        <h2>Your Lesson</h2>
+        <div class="content__main-lessons">
+            <div>
+                <span>Lesson</span>
+                <div>
+                    <span>Staring Time</span>
+                    <span class="room">Room</span>
+                </div>
+            </div>
+            {% for lesson in data['today_lessons'] %}
+            <div>
+                <h4><a href="{{ url_for('main.course_info', id=lesson.id)}}">{{ lesson.lesson.name }}</a></h4>
+                <div>
+                    <span>{{lesson.start_time.strftime('%H:%M') }}</span>
+                    <span class="room">№{{lesson.room.number}}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="content__side">
+        <h1>Last News</h1>
+        <br>
+        {% if 'post' in data %}
+        <div class="content__side-post">
+            <h2><a href="#">{{ data['post']['name'] }}</a></h2>
+            <span>{{ data['post']['time'].strftime('at %d.%m.%Y %H:%M') }}</span>
+            <p>{{ data['post']['text'][:200] }}...</p><br>
+            Author: <em>{{ data['post']['author'] }}</em>
+        </div>
+        {% else %}
+        Nothing yet :(
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

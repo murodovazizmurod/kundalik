@@ -1,9 +1,10 @@
-from flask import session
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import UserMixin
-from . import db
-
 from datetime import datetime
+
+from flask import session
+from flask_login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
+
+from . import db
 from . import login_manager
 
 
@@ -16,7 +17,7 @@ def user_loader(user_id):
         if type == 'teacher':
             return Teacher.query.get(int(user_id))
     else:
-        return False
+        return None
 
 
 subs = db.Table('subs',
@@ -36,6 +37,7 @@ class Teacher(db.Model, UserMixin):
     reg_date = db.Column(db.DateTime, default=datetime.now())
     role = db.relationship("Role", backref="teacher", lazy='dynamic')
     courses = db.relationship("Course", backref="teacher", lazy=True)
+    posts = db.relationship("Post", backref="teacher", lazy='dynamic')
     last_active = db.Column(db.DateTime)
 
     def add(self):
@@ -69,7 +71,7 @@ class Student(db.Model, UserMixin):
     username = db.Column(db.String(255))
     password_hash = db.Column(db.String(255))
     reg_date = db.Column(db.DateTime, default=datetime.now())
-    course_id = db.relationship('Course', secondary=subs, backref=db.backref('students', lazy='dynamic'))
+    course_id = db.relationship('Course', secondary=subs, backref=db.backref('students', lazy=True))
     last_active = db.Column(db.DateTime)
 
     def add(self):
@@ -114,7 +116,7 @@ class Course(db.Model):
         db.session.commit()
 
     def __repr__(self):
-        return f"{self.name}"
+        return f"{self.lesson.name}"
 
 
 class Role(db.Model):
@@ -145,3 +147,15 @@ class Room(db.Model):
 
     def __repr__(self):
         return f"Room №{self.number}"
+
+
+class Post(db.Model):
+    __tablename__ = 'posts'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), nullable=False)
+    text = db.Column(db.String, nullable=False)
+    published_at = db.Column(db.DateTime, default=datetime.now())
+    user_id = db.Column(db.Integer, db.ForeignKey("teachers.id"))
+
+    def __repr__(self):
+        return f"Room №{self.name}"
